@@ -8,14 +8,15 @@ class Tile(pygame.sprite.Sprite):
         """Initialize the tile"""
         super().__init__()
 
-        # TODO: assign pygame.transform.scale() to self.image.  The scale() function call gets the following are arguments
-        # pygame.image.load(f"images/tiles/Tile ({image_int}).png")
-        # (32, 32)
+        self.image = pygame.transform.scale(
+            pygame.image.load(f"images/tiles/Tile ({image_int}).png"),
+            (32, 32),
+        )
 
-        # TODO: if sub_group is not None:
-            # TODO: call sub_group.add() passing in self as the argument
-        # TODO: call main_group.add() passing in self as the argument.
+        if sub_group is not None:
+            sub_group.add(self)
+        main_group.add(self)
 
-        # TODO: assign self.image.get_rect() to self.rect
-        # TODO: assign (x, y) to self.rect.topleft
-        # TODO: assign pygame.mask.from_surface() to self.mask  The from_surface() function call gets self.image as its argument
+        self.rect = self.image.get_rect()
+        self.rect.topleft = (x, y)
+        self.mask = pygame.mask.from_surface(self.image)

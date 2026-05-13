@@ -10,28 +10,27 @@ class Bullet(pygame.sprite.Sprite):
 
         #Set constant variables
         self.VELOCITY = 20
-        # TODO: assign 500 to self.RANGE
+        self.RANGE = 500
 
         #Load image and get rect
         if player.velocity.x > 0:
-            self.image = pygame.transform.scale(pygame.image.load("images/player.slash.png"), (32, 32))
+            self.image = pygame.transform.scale(pygame.image.load("images/player/slash.png"), (32,32))
         else:
-            self.image = pygame.transform.scale(pygame.transform.flip(pygame.image.load("images/player/slash.png"), True, False), (32, 32))
-            self.VELOCITY = -1 * self.VELOCITY
+            self.image = pygame.transform.scale(pygame.transform.flip(pygame.image.load("images/player/slash.png"), True, False), (32,32))
+            self.VELOCITY = -1*self.VELOCITY
 
-        # TODO: assign self.image.get_rect() to self.rect
-        # TODO: assign (x, y) to self.rect.center
+        self.rect = self.image.get_rect()
+        self.rect.center = (x, y)
 
-        # TODO: assign x to self.starting_x
+        self.starting_x = x
 
-        # TODO: call bullet_group.add() with this 1 argument
-        #  1: self
+        bullet_group.add(self)
 
 
     def update(self):
         """Update the bullet"""
-        # TODO: add self.VELOCITY to self.rect.x
+        self.rect.x += self.VELOCITY
 
         #If the bullet has passed the range, kill it
-        # TODO: if abs(self.rect.x - self.starting_x) > self.RANGE:
-            # TODO: self.kill()
+        if abs(self.rect.x - self.starting_x) > self.RANGE:
+            self.kill()
